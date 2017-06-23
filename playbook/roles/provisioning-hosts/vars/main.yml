@@ -1,0 +1,14 @@
+---
+
+# Node define
+nodes:
+  cn1:
+    groups: all
+    installnic: ens3
+    ip: 10.10.10.2
+    mac: 6c:ae:8b:6a:d4:e
+  cn2:
+    groups: all
+    installnic: ens3
+    ip: 10.10.10.3
+    mac: 6c:ae:8b:6a:d4:e2

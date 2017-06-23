@@ -1,0 +1,6 @@
+---
+
+- name:
+  hosts: controller
+  roles:
+    - uninstall

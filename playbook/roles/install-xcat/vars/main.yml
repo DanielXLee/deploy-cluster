@@ -1,0 +1,5 @@
+---
+
+go_xcat_url: "https://raw.githubusercontent.com/xcat2/xcat-core/master/xCAT-server/share/xcat/tools/go-xcat"
+xcat_version: 2.12
+osdistro_path: "/root/rhel-server-7.2-x86_64-dvd.iso"

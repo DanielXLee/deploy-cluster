@@ -1,0 +1,6 @@
+---
+
+- name: Provisioning hosts
+  hosts: controller
+  roles:
+    - provisioning-hosts

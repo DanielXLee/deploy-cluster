@@ -1,0 +1,13 @@
+---
+
+- name: Defination nodes
+  shell: |
+    lsdef {{ item.key }}
+    if [[ "$?" != "0" ]]; then
+      mkdef -t node {{ item.key }} groups={{ item.value.groups }} ip={{ item.value.ip }} installnic={{ item.value.installnic }} primarynic={{ item.value.installnic }} mac={{ item.value.mac }}
+    fi
+  with_dict: "{{ nodes }}"
+
+- name: Initialize the Compute for Deployment
+  command: nodeset {{ item.key }} osimage={{ item.value.osimage }}
+  with_dict: "{{ nodes }}"

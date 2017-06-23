@@ -1,0 +1,6 @@
+---
+
+- name: Install xCAT
+  hosts: controller
+  roles:
+    - install-xcat

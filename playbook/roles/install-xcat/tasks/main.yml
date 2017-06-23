@@ -1,0 +1,16 @@
+---
+# Install xCAT with easily install script 'go-xcat'
+
+- include: config-os-repo-{{ ansible_os_family }}.yml
+
+- name: Obtain easily install script 'go-xcat'
+  get_url:
+    url: "{{ go_xcat_url }}"
+    mode: u+x
+    dest: "/tmp/go-xcat"
+
+- name: Ensure xCAT installed
+  command: /tmp/go-xcat -x {{ xcat_version }} -y install
+
+- name: Create OS image
+  command: copycds {{ osdistro_path }}

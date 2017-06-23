@@ -1,0 +1,30 @@
+---
+
+- name: Ensure xCAT stopped
+  service: name=xcatd state=stopped
+  ignore_errors: yes
+
+- name: Ensure xCAT uninstalled
+  yum: name={{ item }} state=absent
+  with_items:
+    - conserver-xcat
+    - elilo-xcat
+    - grub2-xcat
+    - ipmitool-xcat
+    - perl-xCAT
+    - syslinux-xcat
+    - xCAT
+    - xCAT-buildkit
+    - xCAT-client
+    - xCAT-genesis-base-ppc64
+    - xCAT-genesis-base-x86_64
+    - xCAT-genesis-scripts-ppc64
+    - xCAT-genesis-scripts-x86_64
+    - xCAT-server
+    - xnba-undi
+    - yaboot-xcat
+
+- name: Cleanup remaining files
+  file: path=/opt/xcat state=absent
+  when:
+    - CLEANUP_FILES
