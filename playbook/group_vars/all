@@ -1,3 +1,5 @@
 ---
 
 CLEANUP_FILES: true
+
+VM_PROVISION: true

@@ -1,0 +1,4 @@
+---
+
+- name: Setup hosts
+  command: makehosts

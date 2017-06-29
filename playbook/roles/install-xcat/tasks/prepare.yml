@@ -1,0 +1,30 @@
+---
+
+- name: Ensure dependent packages installed
+  yum: name={{ item }} state=present
+  with_items:
+    - dhcp
+    - httpd
+    - bind
+    - nfs-utils
+    - perl-XML-Parser
+    - vim
+    - wget
+
+- name: Ensure selinux disabled
+  selinux:
+    state: disabled
+  when: ansible_selinux != "disabled"
+
+- name: Ensure iptables stopped
+  service: name=iptables state=stopped
+  ignore_errors: true
+
+- name: Ensure firewalld stopped
+  service: name=firewalld state=stopped
+
+# - name: Setup basic hosts file
+
+# - name: Setup TimeZone
+
+

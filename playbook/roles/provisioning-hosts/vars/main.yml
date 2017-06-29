@@ -1,14 +1,66 @@
 ---
 
 # Node define
-nodes:
-  cn1:
+addnodes:
+  ansible00:
     groups: all
-    installnic: ens3
-    ip: 10.10.10.2
-    mac: 6c:ae:8b:6a:d4:e
-  cn2:
+    installnic: eth0
+    ip: 10.10.10.130
+    mac: 00:0c:29:9b:69:3f
+    netboot: xnba
+    osimage: rhels7.2-x86_64-install-compute
+  ansible01:
     groups: all
-    installnic: ens3
-    ip: 10.10.10.3
-    mac: 6c:ae:8b:6a:d4:e2
+    installnic: eth0
+    ip: 10.10.10.121
+    mac: 00:50:56:a3:5b:55
+    netboot: xnba
+    osimage: rhels7.2-x86_64-install-compute
+  ansible02:
+    groups: all
+    installnic: eth0
+    ip: 10.10.10.122
+    mac: 00:0c:29:50:93:7f
+    netboot: xnba
+    osimage: rhels7.2-x86_64-install-compute
+  ansible03:
+    groups: all
+    installnic: eth0
+    ip: 10.10.10.123
+    mac: 00:50:56:a3:dc:ab
+    netboot: xnba
+    osimage: rhels7.2-x86_64-install-compute
+  ansible04:
+    groups: all
+    installnic: eth0
+    ip: 10.10.10.124
+    mac: 00:0c:29:1d:09:bc
+    netboot: xnba
+    osimage: ubuntu16.04-x86_64-install-compute
+  # ansible05:
+  #   groups: all
+  #   installnic: eth0
+  #   ip: 10.10.10.125
+  #   mac: 00:0c:29:fd:8a:ac
+  #   netboot: xnba
+  #   osimage: rhels7.2-x86_64-install-compute
+  # ansible06:
+  #   groups: all
+  #   installnic: eth0
+  #   ip: 10.10.10.126
+  #   mac: 00:0c:29:e0:ad:d5
+  #   netboot: xnba
+  #   osimage: rhels7.2-x86_64-install-compute
+
+rmnodes:
+  # - ansible00
+  # - ansible01
+  # - ansible02
+  # - ansible03
+  # - ansible04
+  # - ansible05
+  # - ansible06
+
+
+
+

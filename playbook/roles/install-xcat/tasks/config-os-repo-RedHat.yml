@@ -1,9 +1,0 @@
----
-
-- name: Create repository
-  yum_repository:
-    name: rhel-server-7
-    description: Red Hat Enterprise Linux $releasever - $basearch
-    baseurl: http://yum.platformlab.ibm.com/deploy/yum/redhat/releases/rhel-server-7.3-x86_64
-    enabled: yes
-    gpgcheck: no

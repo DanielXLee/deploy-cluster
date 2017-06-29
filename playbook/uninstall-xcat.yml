@@ -1,6 +1,6 @@
 ---
 
-- name:
+- name: Uninstall xCAT
   hosts: controller
   roles:
     - uninstall

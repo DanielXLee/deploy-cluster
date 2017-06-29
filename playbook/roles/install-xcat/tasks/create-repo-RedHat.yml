@@ -1,0 +1,11 @@
+---
+
+- name: Create RedHat repository
+  yum_repository:
+    name: rhel-server-7
+    description: Red Hat Enterprise Linux {{ ansible_distribution_release }} - {{ ansible_architecture }}
+    baseurl: http://9.21.49.112/deploy/yum/redhat/releases/rhel-server-{{ ansible_distribution_version }}-{{ ansible_architecture }}
+    enabled: yes
+    gpgcheck: no
+
+#yum.platformlab.ibm.com

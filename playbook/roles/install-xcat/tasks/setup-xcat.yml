@@ -1,0 +1,54 @@
+---
+
+- name: Add OS distro
+  command: copycds {{ item }}
+  with_items: "{{ osdistros }}"
+  tags: addosdistro
+
+- name: Config xCAT site table
+  command: >-
+    chdef -t site forwarders={{ site.forwarders }} master={{ site.master }}
+    nameservers={{ site.nameservers }} domain={{ site.domain }}
+    dhcpinterfaces={{ site.dhcpinterfaces }}
+  tags: configsite
+
+- name: Remove network
+  shell: |
+    lsdef -t network
+    for net in $(lsdef -t network | awk -F' ' '{print $1}')
+    do
+      rmdef -t network -o $net
+    done
+
+- name: Create network
+  command: >-
+    chdef -t network -o {{ item.key }} net={{ item.value.net }}
+    mask={{ item.value.mask }} gateway={{ item.value.gateway }}
+    tftpserver={{ item.value.tftpserver }} dhcpserver={{ item.value.dhcpserver }}
+    nameservers={{ item.value.nameservers }} ntpservers={{ item.value.ntpservers }}
+    dynamicrange={{ item.value.dynamicrange }} staticrange={{ item.value.staticrange }}
+    staticrangeincrement={{ item.value.staticrangeincrement }} domain={{ item.value.domain }}
+  with_dict: "{{ networks }}"
+  tags: addnets
+
+- name: Setup passwd table
+  shell: |
+    chtab key=system passwd.username=root passwd.password=cluster
+    chtab key=ipmi passwd.username=USERID passwd.password=PASSW0RD
+
+- name: Prepare hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ site.master }} {{ ansible_hostname }} {{ ansible_hostname }}.{{ site.domain }}"
+
+- name: Make DNS with 'makedns'
+  command: makedns -n
+
+- name: Make DHCP with 'makedhcp'
+  command: makedhcp -n
+
+- name: Setup conserver
+  command: makeconservercf
+
+- name: Ensure dhcpd started
+  service: name=dhcpd state=started

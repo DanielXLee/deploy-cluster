@@ -1,0 +1,13 @@
+---
+
+- name: Ensure rpowersim installed
+  template:
+    src: rpowersim.j2
+    dest: /usr/sbin/rpowersim
+    mode: 0755
+
+- name: Copy vmpatch.cfg
+  template:
+    src: vmpatch.cfg.j2
+    dest: /tmp/vmpatch.cfg
+    mode: 0644
