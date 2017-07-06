@@ -4,6 +4,11 @@ go_xcat_url: "https://raw.githubusercontent.com/xcat2/xcat-core/master/xCAT-serv
 xcat_version: 2.12
 osdistro_path: "/root/rhel-server-7.2-x86_64-dvd.iso"
 
+proxy_env:
+  http_proxy: http://9.21.63.27:3128
+  https_proxy: https://9.21.63.27:3128
+  ftp_proxy: ftp://9.21.63.27:3128
+
 osdistros:
   - /root/rhel-server-7.2-x86_64-dvd.iso
   - /root/ubuntu-16.04-server-amd64.iso

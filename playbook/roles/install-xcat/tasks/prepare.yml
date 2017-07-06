@@ -10,6 +10,19 @@
     - perl-XML-Parser
     - vim
     - wget
+  when: ansible_distribution == "RedHat"
+
+# - name: Ensure dependent packages installed
+#   apt: name={{ item }} state=present
+#   with_items:
+#     - dhcp
+#     - httpd
+#     - bind
+#     - nfs-utils
+#     - perl-XML-Parser
+#     - vim
+#     - wget
+#   when: ansible_distribution == "Ubuntu"
 
 - name: Ensure selinux disabled
   selinux:

@@ -6,6 +6,8 @@
     url: "{{ go_xcat_url }}"
     mode: u+x
     dest: "/tmp/go-xcat"
+  environment: "{{ proxy_env }}"
 
 - name: Ensure xCAT installed
   command: /tmp/go-xcat -x {{ xcat_version }} -y install
+  environment: "{{ proxy_env }}"
