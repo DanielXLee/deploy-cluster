@@ -52,3 +52,4 @@
 
 - name: Ensure dhcpd started
   service: name=dhcpd state=started
+  when: ansible_distribution == "RedHat"

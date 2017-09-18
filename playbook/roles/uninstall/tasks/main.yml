@@ -23,6 +23,28 @@
     - xCAT-server
     - xnba-undi
     - yaboot-xcat
+  when: ansible_distribution == "RedHat"
+
+- name: Ensure xCAT uninstalled
+  apt: name={{ item }} state=absent
+  with_items:
+    - conserver-xcat
+    - elilo-xcat
+    - grub2-xcat
+    - ipmitool-xcat
+    - perl-xcat
+    - syslinux-xcat
+    - xcat
+    - xcat-buildkit
+    - xcat-client
+    - xcat-genesis-base-amd64
+    - xcat-genesis-base-ppc64
+    - xcat-genesis-scripts-amd64 
+    - xcat-genesis-scripts-ppc64 
+    - xcat-probe
+    - xcat-server
+  when: ansible_distribution == "Ubuntu"
+  environment: "{{ proxy_env }}"
 
 - name: Cleanup remaining files
   file: path=/opt/xcat state=absent

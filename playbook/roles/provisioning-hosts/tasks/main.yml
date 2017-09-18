@@ -17,6 +17,11 @@
   with_items: "{{ rmnodes }}"
   tags: rmnodes
 
+- name: Force setup network for next reboot
+  command: resetboot {{ item.key }} privision
+  with_dict: "{{ addnodes }}"
+  tags: addnodes
+
 - name: Initialize the Compute for Deployment
   command: nodeset {{ item.key }} osimage={{ item.value.osimage }}
   with_dict: "{{ addnodes }}"

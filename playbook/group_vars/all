@@ -3,3 +3,6 @@
 CLEANUP_FILES: true
 
 VM_PROVISION: true
+
+proxy_env:
+  http_proxy: http://9.21.63.27:3128

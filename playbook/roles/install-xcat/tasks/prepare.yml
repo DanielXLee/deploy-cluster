@@ -12,22 +12,17 @@
     - wget
   when: ansible_distribution == "RedHat"
 
-# - name: Ensure dependent packages installed
-#   apt: name={{ item }} state=present
-#   with_items:
-#     - dhcp
-#     - httpd
-#     - bind
-#     - nfs-utils
-#     - perl-XML-Parser
-#     - vim
-#     - wget
-#   when: ansible_distribution == "Ubuntu"
-
-- name: Ensure selinux disabled
-  selinux:
-    state: disabled
-  when: ansible_selinux != "disabled"
+- name: Ensure dependent packages installed
+  apt: name={{ item }} state=present
+  with_items:
+    - dhcp
+    - httpd
+    - bind
+    - nfs-utils
+    - perl-XML-Parser
+    - vim
+    - wget
+  when: ansible_distribution == "Ubuntu"
 
 - name: Ensure iptables stopped
   service: name=iptables state=stopped
@@ -35,9 +30,4 @@
 
 - name: Ensure firewalld stopped
   service: name=firewalld state=stopped
-
-# - name: Setup basic hosts file
-
-# - name: Setup TimeZone
-
-
+  when: ansible_distribution == "RedHat"
