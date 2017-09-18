@@ -4,8 +4,8 @@
 #   when: ansible_distribution != "RedHat"
 #   tags: prepare
 
-- include: prepare.yml
-  tags: prepare
+# - include: prepare.yml
+#   tags: prepare
 
 - include: install.yml
   tags: install
