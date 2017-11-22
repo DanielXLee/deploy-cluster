@@ -1,0 +1,28 @@
+---
+
+# Network
+# networks:
+#   provision:
+#     net: 10.10.10.0
+#     mask: 255.255.255.0
+#     gateway: <xcatmaster>
+#     dhcpserver: 10.10.10.115
+#     tftpserver: 10.10.10.115
+#     nameservers: 10.10.10.115
+#     ntpservers: 10.10.10.115
+#     dynamicrange: 10.10.10.201-10.10.10.254
+#     staticrange: 10.10.10.10-10.10.10.200
+#     staticrangeincrement: 1
+#     domain: private.dns.zone
+#   public:
+#     net: 20.10.10.0
+#     mask: 255.255.255.0
+#     gateway: "<xcatmaster>"
+#     dhcpserver: 20.10.10.115
+#     tftpserver: 20.10.10.115
+#     nameservers: 20.10.10.115
+#     ntpservers: 20.10.10.115
+#     dynamicrange: 20.10.10.201-20.10.10.254
+#     staticrange: 20.10.10.10-20.10.10.200
+#     staticrangeincrement: 1
+#     domain: public.dns.zone

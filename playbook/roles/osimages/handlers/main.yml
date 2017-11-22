@@ -1,0 +1,5 @@
+---
+
+- name: Update osimages
+  shell: |
+    chdef <nodename> -p postbootscripts=nicbondscript

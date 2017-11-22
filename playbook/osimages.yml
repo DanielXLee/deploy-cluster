@@ -1,0 +1,6 @@
+---
+
+- name: OS image management
+  hosts: controller
+  roles:
+    - osimages

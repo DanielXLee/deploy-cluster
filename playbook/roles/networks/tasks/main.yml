@@ -1,0 +1,21 @@
+---
+
+- name: Create network
+  shell: |
+    existing_net=($(/opt/xcat/bin/lsdef -t network | awk -F' ' '{print $1}'))
+    if [[ ! "${existing_net[@]}" =~ "{{ item.key }}" ]]; then
+      /opt/xcat/bin/chdef -t network -o {{ item.key }} net={{ item.value.net }} mask={{ item.value.mask }} gateway="{{ item.value.gateway }}" tftpserver={{ item.value.tftpserver }} dhcpserver={{ item.value.dhcpserver }} nameservers={{ item.value.nameservers }} ntpservers={{ item.value.ntpservers }} dynamicrange={{ item.value.dynamicrange }} staticrange={{ item.value.staticrange }} staticrangeincrement={{ item.value.staticrangeincrement }} domain={{ item.value.domain }}  
+    fi
+  register: cmd_result
+  changed_when: item.key in cmd_result.stdout
+  with_dict: "{{ networks }}"
+  tags: create
+
+- name: Remove network
+  shell: |
+    /opt/xcat/bin/chdef -t network {{ netname }}
+  tags: remove
+
+# - name: Create defaule network profile
+#   shell: |
+#     /opt/xcat/sbin/tabch node=__NetworkProfile_default_network_profile nics.nicnetworks='eth0!10_10_10_0-255_255_255_0'

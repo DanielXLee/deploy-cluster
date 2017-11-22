@@ -1,0 +1,70 @@
+---
+
+# - name: Upload node import file
+#   copy:
+#     src: "{{ node_import_file }}"
+#     dest: /tmp/node_import_file
+
+# - name: Import nodes
+#   shell: |
+#     /opt/xcat/bin/nodeimport file=/tmp/node_import_file networkprofile={{ networkprofile }} imageprofile={{ imageprofile }} hostnameformat={{ hostnameformat }} groups={{ groups }}
+
+# netboot:  The type of network booting to use for this node.  Valid values:
+# Arch                    OS                           valid netboot options
+# x86, x86_64             ALL                          pxe, xnba
+# ppc64                   <=rhel6, <=sles11.3          yaboot
+# ppc64                   >=rhels7, >=sles11.4         grub2,grub2-http,grub2-tftp
+# ppc64le NonVirtualize   ALL                          petitboot
+# ppc64le PowerKVM Guest  ALL                          grub2,grub2-http,grub2-tftp
+
+
+
+- name: Defination nodes
+  shell: |
+    existing_node=($(/opt/xcat/bin/lsdef -t node | awk -F' ' '{print $1}'))
+    if [[ ! "${existing_node[@]}" =~ "{{ item.key }}" ]]; then
+      /opt/xcat/bin/mkdef -t node {{ item.key }} groups=all installnic={{ nic }} primarynic={{ nic }} mac={{ item.value.mac }} nicips={{ item.value.nicips}} addkcmdline=net.ifnames=0
+    fi
+  # register: cmd_result
+  # changed_when: item.key in cmd_result.stdout
+  with_dict: "{{ nodes }}"
+  notify: Setup hosts
+  tags: addnodes
+
+- name: Update node configuration
+  shell: |
+    osarch=$(/opt/xcat/bin/lsdef -t osimage {{ osimage }} -i osarch | cut -d= -f2)
+    if [[ "$osarch" == "x84_64" ]]; then
+      netboot="xnba"
+    elif [[ "$osarch" == "ppc64le" ]]; then
+      netboot="grub2"
+    fi
+    /opt/xcat/bin/chdef {{ item.key }} -p postbootscripts=confignics netboot=$netboot
+  with_dict: "{{ nodes }}"
+
+- name: Initialize the Compute for Deployment
+  command: /opt/xcat/sbin/nodeset {{ item.key }} osimage={{ osimage }}
+  with_dict: "{{ nodes }}"
+  tags: addnodes
+
+- name: Start the OS Deployment
+  command: /opt/xcat/bin/rsetboot {{ item.key }} net
+  when: item.value.bmc is defined
+  with_dict: "{{ nodes }}"
+  tags: addnodes
+
+
+# - name: Apply VM patch when VM provisioning
+#   include: apply-vm-patch.yml
+#   when: VM_PROVISION
+
+# - name: Boot the nodes
+#   command: rpowersim {{ item.key }} on
+#   with_dict: "{{ nodes }}"
+#   when: VM_PROVISION
+# - name: Remove nodes
+#   shell: |
+#     lsdef {{ item }} 2> /dev/null
+#     [[ "$?" == "0" ]] && rmdef {{ item }} || exit 0
+#   with_items: "{{ rmnodes }}"
+#   tags: rmnodes

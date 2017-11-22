@@ -1,14 +1,14 @@
 ---
 
-# - include: create-repo-{{ ansible_os_family }}.yml
-#   when: ansible_distribution != "RedHat"
-#   tags: prepare
+- include: create-repo-{{ ansible_os_family }}.yml
+  when: ansible_distribution != "RedHat"
+  tags: prepare
 
-# - include: prepare.yml
-#   tags: prepare
+- include: prepare.yml
+  tags: prepare
 
 - include: install.yml
   tags: install
 
-# - include: setup-xcat.yml
-#   tags: setupxcat
+- include: configuration.yml
+  tags: setupxcat

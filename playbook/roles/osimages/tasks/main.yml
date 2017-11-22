@@ -1,0 +1,13 @@
+---
+
+- name: Create OS image
+  shell: |
+    /opt/xcat/sbin/copycds {{ item }}
+  register: cmd_result
+  changed_when: "'already been copied' not in cmd_result.stdout"
+  with_items: "{{ osdistros }}"
+  tags: create
+
+- name: Remove OS image
+  command: /opt/xcat/bin/rmdef -t osimage {{ osimagename }}
+  tags: remove

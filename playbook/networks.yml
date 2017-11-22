@@ -1,0 +1,6 @@
+---
+
+- name: Network management
+  hosts: controller
+  roles:
+    - networks

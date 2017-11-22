@@ -7,5 +7,3 @@
     baseurl: http://9.21.49.112/deploy/yum/redhat/releases/rhel-server-{{ ansible_distribution_version }}-{{ ansible_architecture }}
     enabled: yes
     gpgcheck: no
-
-#yum.platformlab.ibm.com

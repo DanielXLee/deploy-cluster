@@ -1,32 +1,13 @@
 ---
 
 go_xcat_url: "https://raw.githubusercontent.com/xcat2/xcat-core/master/xCAT-server/share/xcat/tools/go-xcat"
-xcat_version: 2.12
+xcat_version: 2.13
 
-osdistros:
-  - /root/rhel-server-7.3-x86_64-dvd.iso
-  # - /root/ubuntu-16.04-server-amd64.iso
-
-private_ip: 10.10.10.115
+private_ip: 10.10.10.99
 
 site:
-  domain: private.dns.zone
+  domain: basic.mc
   dhcpinterfaces: ens224
   forwarders: "{{ private_ip }}"
   master: "{{ private_ip }}"
   nameservers: "{{ private_ip }}"
-
-# Network
-networks:
-  provision:
-    net: 10.10.10.0
-    mask: 255.255.255.0
-    gateway: <xcatmaster>
-    dhcpserver: "{{ private_ip }}"
-    tftpserver: "{{ private_ip }}"
-    nameservers: "{{ private_ip }}"
-    ntpservers: "{{ private_ip }}"
-    dynamicrange: 10.10.10.201-10.10.10.254
-    staticrange: 10.10.10.10-10.10.10.200
-    staticrangeincrement: 1
-    domain: private.dns.zone
